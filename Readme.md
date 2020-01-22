@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Виталий Бордяшов](https://up.htmlacademy.ru/javascript/19/user/1298669).
-* Наставник: `Неизвестно`.
+* Наставник: [Максим Деев](https://htmlacademy.ru/profile/id685777).
 
 ---
 
