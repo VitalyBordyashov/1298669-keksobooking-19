@@ -10,36 +10,36 @@ var getRandomNumber = function (max) {
   return Math.floor(Math.random() * max);
 };
 // функция возвращения числа 01-08
-var getNumberWithZerro() {
+var getNumberWithZerro = function () {
   return '0' + getRandomNumber(8);
 };
 // функция вывода массива случайной длины из предложенных
-var randomArray = function(array) {
+var randomArray = function (array) {
   var emptyArray = [];
-  for (i = 0; i < getRandomNumber(array.length); i++) {
-    emptyArray.push(array[getRandomNumber(array.length-1)]);
+  for (var i = 0; i < getRandomNumber(array.length); i++) {
+    emptyArray.push(array[getRandomNumber(array.length - 1)]);
     return emptyArray;
   }
-}
+};
 // генератор строки(текста)
 var stringGenerator = function(len) {
-  chrs = 'ячсмитьбюфывапролджэйцукенгшщзхъЯЧСМИТЬБЮФЫВАПРОЛДЖЭЙЦУКЕНГШЩЗ0123456789 ,.';
-    var str = '';
-    for (var i = 0; i < len; i++) {
-        var pos = Math.floor(Math.random() * chrs.length);
-        str += chrs.substring(pos,pos+1);
-    }
+  var chrs = 'ячсмитьбюфывапролджэйцукенгшщзхъЯЧСМИТЬБЮФЫВАПРОЛДЖЭЙЦУКЕНГШЩЗ0123456789 ,.';
+  var str = '';
+  for (i = 0; i < len; i++) {
+    var pos = getRandomNumber(chrs.length);
+    str += chrs.substring(pos,pos+1);
+  }
     return str;
 }
 
 var generatingObject = function() {
   return {
     author: {
-      avatar: "img/avatars/user" + arraNumbers[i] + ".png"
+      avatar: "img/avatars/user" + getNumberWithZerro() + ".png"
     },
     offer: {
-      title: randomString().toString(),
-      address: getRandomNumber(1000) + ', ' + getRandomNumber(1000),
+      title: stringGenerator(100),
+      address: getRandomNumber(600) + ', ' + getRandomNumber(350),
       price: getRandomNumber(10000000),
       type: arrayValues[getRandomNumber(arrayValues.length)],
       rooms: getRandomNumber(10),
@@ -58,7 +58,7 @@ var generatingObject = function() {
 }
 var arrayCreation = function() {
     for (i = 1; i <= 8; i++){
-      generatingObject();
+      arraNumbers.push(generatingObject());
     }
 };
 
@@ -66,9 +66,20 @@ var arrayCreation = function() {
 var createdItem = document.querySelector('.map');
 createdItem.classList.remove('map--faded');
 
+// 3 пункт
+// объявляем функцию создания эелемента DOM
+var creatingItem = function (value) {
+  return document.querySelector(value);
+};
 
-
-
+for (i = 0; i <= arraNumbers.length; i++) {
+  // переменная для хранения копий шаблонов объектов
+  var copyTemplate = creatingItem('#pin');
+  copyTemplate.style = 'left:' + arraNumbers[i].location.x + 200 + 'px;' + 'top:' + arraNumbers[i].location.y + 200 + 'px;';
+  copyTemplate.querySelector('img').setAttribute('src', arraNumbers[i].author.avatar);
+  copyTemplate.querySelector('alt').setAttribute('src', arraNumbers[i].title);
+  creatingItem('.map__pins').appendChild(copyTemplate);
+}
 
 
 
