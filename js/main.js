@@ -25,7 +25,7 @@ var randomArray = function (array) {
 var stringGenerator = function(len) {
   var chrs = 'ячсмитьбюфывапролджэйцукенгшщзхъЯЧСМИТЬБЮФЫВАПРОЛДЖЭЙЦУКЕНГШЩЗ0123456789 ,.';
   var str = '';
-  for (i = 0; i < len; i++) {
+  for (var i = 0; i < len; i++) {
     var pos = getRandomNumber(chrs.length);
     str += chrs.substring(pos,pos+1);
   }
@@ -51,17 +51,17 @@ var generatingObject = function() {
       photos: randomArray(arrayPhotos),
     },
     location: {
-      x: getRandomNumber(1000),
-      y: getRandomNumber(1000),
+      x: getRandomNumber(100),
+      y: getRandomNumber(100),
     },
     }
 }
 var arrayCreation = function() {
-    for (i = 1; i <= 8; i++){
+    for (var i = 1; i <= 8; i++){
       arraNumbers.push(generatingObject());
     }
 };
-
+arrayCreation();
 // убираем .map--faded из блока map
 var createdItem = document.querySelector('.map');
 createdItem.classList.remove('map--faded');
@@ -72,12 +72,12 @@ var creatingItem = function (value) {
   return document.querySelector(value);
 };
 
-for (i = 0; i <= arraNumbers.length; i++) {
+for (var i = 0; i <= arraNumbers.length; i++) {
   // переменная для хранения копий шаблонов объектов
   var copyTemplate = creatingItem('#pin');
   copyTemplate.style = 'left:' + arraNumbers[i].location.x + 200 + 'px;' + 'top:' + arraNumbers[i].location.y + 200 + 'px;';
   copyTemplate.querySelector('img').setAttribute('src', arraNumbers[i].author.avatar);
-  copyTemplate.querySelector('alt').setAttribute('src', arraNumbers[i].title);
+  copyTemplate.querySelector('img').setAttribute('alt', arraNumbers[i].title);
   creatingItem('.map__pins').appendChild(copyTemplate);
 }
 
