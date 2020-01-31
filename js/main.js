@@ -18,24 +18,24 @@ var randomArray = function (array) {
   var emptyArray = [];
   for (var i = 0; i < getRandomNumber(array.length); i++) {
     emptyArray.push(array[getRandomNumber(array.length - 1)]);
-    return emptyArray;
   }
+  return emptyArray;
 };
 // генератор строки(текста)
-var stringGenerator = function(len) {
+var stringGenerator = function (len) {
   var chrs = 'ячсмитьбюфывапролджэйцукенгшщзхъЯЧСМИТЬБЮФЫВАПРОЛДЖЭЙЦУКЕНГШЩЗ0123456789 ,.';
   var str = '';
   for (var i = 0; i < len; i++) {
     var pos = getRandomNumber(chrs.length);
-    str += chrs.substring(pos,pos+1);
+    str += chrs.substring(pos, pos + 1);
   }
-    return str;
-}
+  return str;
+};
 
-var generatingObject = function() {
+var generatingObject = function () {
   return {
     author: {
-      avatar: "img/avatars/user" + getNumberWithZerro() + ".png"
+      avatar: 'img/avatars/user' + getNumberWithZerro() + '.png'
     },
     offer: {
       title: stringGenerator(100),
@@ -51,15 +51,15 @@ var generatingObject = function() {
       photos: randomArray(arrayPhotos),
     },
     location: {
-      x: getRandomNumber(100),
-      y: getRandomNumber(100),
+      x: getRandomNumber(500),
+      y: getRandomNumber(400),
     },
-    }
-}
-var arrayCreation = function() {
-    for (var i = 1; i <= 8; i++){
-      arraNumbers.push(generatingObject());
-    }
+  };
+};
+var arrayCreation = function () {
+  for (var i = 1; i <= 8; i++) {
+    arraNumbers.push(generatingObject());
+  }
 };
 arrayCreation();
 // убираем .map--faded из блока map
@@ -71,15 +71,12 @@ createdItem.classList.remove('map--faded');
 var creatingItem = function (value) {
   return document.querySelector(value);
 };
-
+var template = creatingItem('#pin');
 for (var i = 0; i <= arraNumbers.length; i++) {
   // переменная для хранения копий шаблонов объектов
-  var copyTemplate = creatingItem('#pin');
-  copyTemplate.style = 'left:' + arraNumbers[i].location.x + 200 + 'px;' + 'top:' + arraNumbers[i].location.y + 200 + 'px;';
+  var copyTemplate = template.content.querySelector('button').cloneNode(true);
+  copyTemplate.style = 'left:' + (arraNumbers[i].location.x + 200) + 'px;' + 'top:' + (arraNumbers[i].location.y + 200) + 'px;';
   copyTemplate.querySelector('img').setAttribute('src', arraNumbers[i].author.avatar);
   copyTemplate.querySelector('img').setAttribute('alt', arraNumbers[i].title);
   creatingItem('.map__pins').appendChild(copyTemplate);
 }
-
-
-
