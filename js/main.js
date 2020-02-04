@@ -83,9 +83,9 @@ for (var i = 0; i <= arraNumbers.length; i++) {
 // эелемент клон из шаблона #card
 var templateCard = creatingItem('#card').cloneNode(true);
 // в нем находим .popup__title и вставляем данные из 0-го элемента массива
-templateCard.content.querySelector('.popup__title').appendChild(arraNumbers[0].offer.title);
-templateCard.content.querySelector('.popup__text--address').appendChild(arraNumbers[0].offer.address);
-templateCard.content.querySelector('.popup__text--price').appendChild(arraNumbers[0].offer.price + '&#8381;' + '/ночь');
+templateCard.content.querySelector('.popup__title').textContent(arraNumbers[0].offer.title);
+templateCard.content.querySelector('.popup__text--address').textContent(arraNumbers[0].offer.address);
+templateCard.content.querySelector('.popup__text--price').textContent(arraNumbers[0].offer.price + '&#8381;' + '/ночь');
 
 var typeComparison = function () {
   if (arraNumbers[0].offer.type === 'flat') {
@@ -103,12 +103,12 @@ templateCard.content.querySelector('.popup__text--capacity').textContent(arraNum
 templateCard.content.querySelector('.popup__text--time').textContent('Заезд после ' + arraNumbers[0].offer.checkin + ', выезд до ' + arraNumbers[0].offer.checkout);
 templateCard.content.querySelector('.popup__features').textContent(arrayConveniences);
 templateCard.content.querySelector('.popup__description').appendChild(arraNumbers[0].offer.description);
-var templateFhoto = creatingItem('popup__photos');
-for (i = 0; i <= arrayPhotos.length; i++) {
+var templateFhoto = templateCard.content.querySelector('.popup__photos');
+for (i = 0; i < arrayPhotos.length; i++) {
   // переменная для хранения копий шаблонов объектов
-  var copyTemplateFhoto = templateFhoto.content.querySelector('img').cloneNode(true);
-  copyTemplateFhoto.content.setAttribute('src', arrayPhotos[i]);
+  var copyTemplateFhoto = templateFhoto.querySelector('img').cloneNode(true);
+  copyTemplateFhoto.setAttribute('src', arrayPhotos[i]);
 }
 templateCard.content.querySelector('.popup__avatar').setAttribute('src', arraNumbers[0].author.avatar);
 
-document.querySelector('.map>map__filters-container').insertAdjacentElement('beforebegin', templateCard);
+document.querySelector('.map').appendChild(templateCard.content);
