@@ -3,7 +3,7 @@
 var arraNumbers = [];
 var arrayValues = ['palace', 'flat', 'house', 'bungalo'];
 var arrTime = ['12:00', '13:00', '14:00'];
-var arrayStrings = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator'];
+var arrayConveniences = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator'];
 var arrayPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 // функция случайного числа
 var getRandomNumber = function (max) {
@@ -46,7 +46,7 @@ var generatingObject = function () {
       guests: getRandomNumber(100),
       checkin: arrTime[getRandomNumber(arrTime.length)],
       checkout: arrTime[getRandomNumber(arrTime.length)],
-      features: randomArray(arrayStrings),
+      features: randomArray(arrayConveniences),
       description: stringGenerator(100),
       photos: randomArray(arrayPhotos),
     },
@@ -80,3 +80,35 @@ for (var i = 0; i <= arraNumbers.length; i++) {
   copyTemplate.querySelector('img').setAttribute('alt', arraNumbers[i].title);
   creatingItem('.map__pins').appendChild(copyTemplate);
 }
+// эелемент клон из шаблона #card
+var templateCard = creatingItem('#card').cloneNode(true);
+// в нем находим .popup__title и вставляем данные из 0-го элемента массива
+templateCard.content.querySelector('.popup__title').textContent(arraNumbers[0].offer.title);
+templateCard.content.querySelector('.popup__text--address').textContent(arraNumbers[0].offer.address);
+templateCard.content.querySelector('.popup__text--price').textContent(arraNumbers[0].offer.price + '&#8381;' + '/ночь');
+
+var typeComparison = function () {
+  if (arraNumbers[0].offer.type === 'flat') {
+    return 'Квартира';
+  } else if (arraNumbers[0].offer.type === 'palace') {
+    return 'Дворец';
+  } else if (arraNumbers[0].offer.type === 'bungalo') {
+    return 'Бунгало';
+  } else if (arraNumbers[0].offer.type === 'house') {
+    return 'Дом';
+  }
+};
+templateCard.content.querySelector('.popup__type').textContent(typeComparison(arraNumbers[0].offer.type));
+templateCard.content.querySelector('.popup__text--capacity').textContent(arraNumbers[0].offer.rooms + ' комнаты для ' + arraNumbers[0].offer.quests + ' гостей');
+templateCard.content.querySelector('.popup__text--time').textContent('Заезд после ' + arraNumbers[0].offer.checkin + ', выезд до ' + arraNumbers[0].offer.checkout);
+templateCard.content.querySelector('.popup__features').textContent(arrayConveniences);
+templateCard.content.querySelector('.popup__description').appendChild(arraNumbers[0].offer.description);
+var templateFhoto = templateCard.content.querySelector('.popup__photos');
+for (i = 0; i < arrayPhotos.length; i++) {
+  // переменная для хранения копий шаблонов объектов
+  var copyTemplateFhoto = templateFhoto.querySelector('img').cloneNode(true);
+  copyTemplateFhoto.setAttribute('src', arrayPhotos[i]);
+}
+templateCard.content.querySelector('.popup__avatar').setAttribute('src', arraNumbers[0].author.avatar);
+
+document.querySelector('.map').appendChild(templateCard.content);
