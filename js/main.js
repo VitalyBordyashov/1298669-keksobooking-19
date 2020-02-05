@@ -1,4 +1,5 @@
 'use strict';
+var ENTER_KEY = 'Enter';
 // массив для объектов
 var arraNumbers = [];
 var arrayValues = ['palace', 'flat', 'house', 'bungalo'];
@@ -40,10 +41,10 @@ var generatingObject = function () {
     offer: {
       title: stringGenerator(100),
       address: getRandomNumber(600) + ', ' + getRandomNumber(350),
-      price: getRandomNumber(10000000),
+      price: getRandomNumber(1000),
       type: arrayValues[getRandomNumber(arrayValues.length)],
       rooms: getRandomNumber(10),
-      guests: getRandomNumber(100),
+      guests: getRandomNumber(4),
       checkin: arrTime[getRandomNumber(arrTime.length)],
       checkout: arrTime[getRandomNumber(arrTime.length)],
       features: randomArray(arrayConveniences),
@@ -62,9 +63,6 @@ var arrayCreation = function () {
   }
 };
 arrayCreation();
-// убираем .map--faded из блока map
-var createdItem = document.querySelector('.map');
-createdItem.classList.remove('map--faded');
 
 // 3 пункт
 // объявляем функцию создания эелемента DOM
@@ -72,7 +70,7 @@ var creatingItem = function (value) {
   return document.querySelector(value);
 };
 var template = creatingItem('#pin');
-for (var i = 0; i <= arraNumbers.length; i++) {
+for (var i = 0; i < arraNumbers.length; i++) {
   // переменная для хранения копий шаблонов объектов
   var copyTemplate = template.content.querySelector('button').cloneNode(true);
   copyTemplate.style = 'left:' + (arraNumbers[i].location.x + 200) + 'px;' + 'top:' + (arraNumbers[i].location.y + 200) + 'px;';
@@ -83,9 +81,9 @@ for (var i = 0; i <= arraNumbers.length; i++) {
 // эелемент клон из шаблона #card
 var templateCard = creatingItem('#card').cloneNode(true);
 // в нем находим .popup__title и вставляем данные из 0-го элемента массива
-templateCard.content.querySelector('.popup__title').textContent(arraNumbers[0].offer.title);
-templateCard.content.querySelector('.popup__text--address').textContent(arraNumbers[0].offer.address);
-templateCard.content.querySelector('.popup__text--price').textContent(arraNumbers[0].offer.price + '&#8381;' + '/ночь');
+templateCard.content.querySelector('.popup__title').textContent = arraNumbers[0].offer.title;
+templateCard.content.querySelector('.popup__text--address').textContent = arraNumbers[0].offer.address;
+templateCard.content.querySelector('.popup__text--price').textContent = arraNumbers[0].offer.price + ' Rub' + '/ночь';
 
 var typeComparison = function () {
   if (arraNumbers[0].offer.type === 'flat') {
@@ -98,11 +96,11 @@ var typeComparison = function () {
     return 'Дом';
   }
 };
-templateCard.content.querySelector('.popup__type').textContent(typeComparison(arraNumbers[0].offer.type));
-templateCard.content.querySelector('.popup__text--capacity').textContent(arraNumbers[0].offer.rooms + ' комнаты для ' + arraNumbers[0].offer.quests + ' гостей');
-templateCard.content.querySelector('.popup__text--time').textContent('Заезд после ' + arraNumbers[0].offer.checkin + ', выезд до ' + arraNumbers[0].offer.checkout);
-templateCard.content.querySelector('.popup__features').textContent(arrayConveniences);
-templateCard.content.querySelector('.popup__description').appendChild(arraNumbers[0].offer.description);
+templateCard.content.querySelector('.popup__type').textContent = typeComparison(arraNumbers[0].offer.type);
+templateCard.content.querySelector('.popup__text--capacity').textContent = arraNumbers[0].offer.rooms + ' комнаты для ' + arraNumbers[0].offer.guests + ' гостей';
+templateCard.content.querySelector('.popup__text--time').textContent = 'Заезд после ' + arraNumbers[0].offer.checkin + ', выезд до ' + arraNumbers[0].offer.checkout;
+templateCard.content.querySelector('.popup__features').textContent = arrayConveniences;
+templateCard.content.querySelector('.popup__description').textContent = arraNumbers[0].offer.description;
 var templateFhoto = templateCard.content.querySelector('.popup__photos');
 for (i = 0; i < arrayPhotos.length; i++) {
   // переменная для хранения копий шаблонов объектов
@@ -112,3 +110,24 @@ for (i = 0; i < arrayPhotos.length; i++) {
 templateCard.content.querySelector('.popup__avatar').setAttribute('src', arraNumbers[0].author.avatar);
 
 document.querySelector('.map').appendChild(templateCard.content);
+
+// убираем .map--faded из блока map
+var createdItem = document.querySelector('.map');
+var markMap = document.querySelector('.map__pin--main');
+var addressField = document.querySelector('#address');
+addressField.setAttribute('value', '600' + ', ' + '400');
+var onMapremoval = function () {
+  createdItem.classList.remove('map--faded');
+  addressField.setAttribute('value', '600' + ', ' + '450');
+};
+markMap.addEventListener('mousedown', function(evt) {
+  if (evt.which == 1) {
+    onMapremoval();
+  }
+});
+markMap.addEventListener('keydown', function(evt) {
+  if (evt.key === ENTER_KEY) {
+    onMapremoval();
+  }
+});
+
