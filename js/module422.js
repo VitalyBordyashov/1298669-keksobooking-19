@@ -4,13 +4,13 @@
   var housingRooms = document.querySelector('#housing-rooms');
   var housingGuests = document.querySelector('#housing-guests');
   var isCorrect = function (guests, rooms) {
-    if (guests > rooms) {
-      return false
+    if (Number(guests) > Number(rooms)) {
+      return false;
     }
-    return true
+    return true;
   };
-  housingGuests.addEventListener('change', function (evt) {
-    if (!isCorrect(evt.target.value, housingRooms.getAttribute(value))) {
+  housingRooms.addEventListener('change', function () {
+    if (!isCorrect(housingGuests.value, housingRooms.value)) {
       housingRooms.setCustomValidity('Вы ввели число комнат менее количества гостей');
     }
   }

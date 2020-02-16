@@ -32,7 +32,7 @@
     var clone = copyTemplateFhoto.cloneNode(true);
     clone.setAttribute('src', window.module32.arrayPhotos[i]);
     templateFhoto.appendChild(clone);
-    }
+  }
   templateCard.content.querySelector('.popup__avatar').setAttribute('src', window.module32.arraNumbers[0].author.avatar);
 
   document.querySelector('.map').appendChild(templateCard.content);
