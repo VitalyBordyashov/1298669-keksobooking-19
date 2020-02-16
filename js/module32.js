@@ -71,6 +71,14 @@
     copyTemplate.querySelector('img').setAttribute('alt', arraNumbers[i].title);
     document.querySelector('.map__pins').appendChild(copyTemplate);
   }
+  var mapPins = document.querySelector('.map__pins');
+  var mapPin = mapPins.querySelectorAll('.map__pin');
+  for (i = 0; i < mapPin.length; i++) {
+    if (!mapPin[i].classList.contains('map__pin--main')) {
+      mapPin[i].setAttribute('data_click', i-1);
+    }
+  }
+
   window.module32 = {
     ENTER_KEY: ENTER_KEY,
     arrayCreation: arrayCreation,
