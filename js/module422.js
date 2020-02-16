@@ -15,4 +15,10 @@
     }
   }
   );
+   housingGuests.addEventListener('change', function () {
+    if (!isCorrect(housingGuests.value, housingRooms.value)) {
+      housingGuests.setCustomValidity('Вы ввели число комнат менее количества гостей');
+    }
+  }
+  );
 })();
