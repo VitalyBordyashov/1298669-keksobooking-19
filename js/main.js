@@ -32,7 +32,7 @@ var stringGenerator = function (len) {
   }
   return str;
 };
-
+/*
 var generatingObject = function () {
   return {
     author: {
@@ -63,6 +63,17 @@ var arrayCreation = function () {
   }
 };
 arrayCreation();
+*/
+
+var successHandler = function (pins) {
+    arraNumbers = pins;
+};
+
+var errorHandler = function (errorMessage) {
+    console.log(errorMessage);
+};
+
+window.load(successHandler, errorHandler);
 
 // 3 пункт
 // объявляем функцию создания эелемента DOM
@@ -124,7 +135,7 @@ addressField.setAttribute('value', '600' + ', ' + '400');
 var onMapremoval = function () {
   createdItem.classList.remove('map--faded');
   addressField.setAttribute('value', '600' + ', ' + '450');
-  
+
 markMap.addEventListener('mousedown', function(evt) {
   if (evt.which == 1) {
     onMapremoval();
