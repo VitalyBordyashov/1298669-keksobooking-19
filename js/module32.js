@@ -62,6 +62,7 @@
     }
   };
   arrayCreation();
+
   var template = document.querySelector('#pin');
   for (var i = 0; i < arraNumbers.length; i++) {
     // переменная для хранения копий шаблонов объектов
